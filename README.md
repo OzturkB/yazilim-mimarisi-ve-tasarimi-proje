@@ -88,3 +88,67 @@ class Program
 }
 ```
 Factory method tasarım deseni ile client etkilenmeden değişiklik yapılabilir.
+
+## Facade Tasarım Deseni
+Bu tasarım deseni, sistemin detaylarını saklayarak, istemcinin dışarıdan sisteme ulaşabilmesi için tek bir ön yüz sunar. Sistemdeki alt sınıflara, bu ön yüz sınıfı ile ulaşılır. İstemci yalnızca sistemdeki bu ön yüz sınıfını bilir. Yani kısaca ön yüz sınıfı, sistemin dışarıya açılmış bir kapısı gibidir.
+
+![Image of Class](https://github.com/OzturkB/yazilim-mimarisi-ve-tasarimi-proje/blob/master/Facade.png)
+
+```csharp
+public class Sistem1Kontrol
+{
+    public bool KaraListeKontrol(string Tc)
+    {
+        //kontrol edildiğini varsayalım
+        return false;
+    }
+}
+
+public class Sistem2Operations
+{
+    public void UyeEkle(string Tc)
+    {
+        Console.WriteLine("{0} Üye Eklendi",Tc);
+    }
+}
+public class TcKimlikSistem
+{
+    public bool Kontrol(string Tc)
+    {
+        //kontrol edildiğini varsayalım
+        return true;
+    }
+}
+```
+Yukarıdaki kodda alt katmandaki sınıflar tanımlanır. Ardından aşağıdaki gibi ön yüz sınıf tanımlanır. Bu sınıf içerisinde parametre olarak verilen TC kimlik numarasının kara listede olup olmadığını ve doğru olup olmadığını kontrol eden 'Sistem2UyeEkle' fonksiyonu vardır.
+
+```csharp
+public class Facade
+{
+    //constructor da oluşturulabilir
+    //singleton olarak tasarlanabilir
+    TcKimlikSistem TcSistem = new TcKimlikSistem();
+    Sistem1Kontrol Sistem1 = new Sistem1Kontrol();
+    Sistem2Operations Sistem2 = new Sistem2Operations();
+    public void Sistem2UyeEkle(string Tc)
+    {
+        if (TcSistem.Kontrol(Tc) && !Sistem1.KaraListeKontrol(Tc))
+        {
+            Sistem2.UyeEkle(Tc);
+        }
+    }
+}
+```
+Main fonksiyonu içerisinde 'Facade' sınıfından nesne üretilir ve nesnenin 'Sistem2UyeEkle' fonksiyonu çağırılır.
+```csharp
+class Program
+{
+    static void Main(string[] args)
+    {
+        Facade f = new Facade();
+        f.Sistem2UyeEkle("123123");
+        Console.ReadKey();
+    }
+}
+```
+Sistem1Kontrol, Sistem2Operations ve TcKimlikSistem sınıfları alt sistemlerdir. Program yani client bu sınıfları direkt olarak kullanmayıp oluşturulan Facade sınıfı üzerinden kullanır.
