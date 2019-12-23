@@ -35,7 +35,7 @@ public class Motorcycle : IVehicle
         Console.WriteLine("Motorcycle produced");
     }
 }
-    ```
+```
 Yukarıda nesneler ve arayüzleri oluşturuldu. Ardından VehicleFactory isimli, içerisinde geriye IVehicle döndüren ProduceVehicle adında bir sınıf tanımlanır. ProduceVehicle metodu VehicleType adında bir bir enum parametre olarak alır. Bu enum'ı kullanarak factory metoduna üretmesini istediğimiz tip bilgisini geçeceğiz.
 ```csharp
 public enum VehicleType
@@ -70,7 +70,7 @@ public class VehicleFactory : IVehicleFactory
         return vehicle;
     }
 }
-    ```
+```
 Program.cs içerisinde aşağıdaki gibi üretmek istediğimiz türdeki aracı factory'e söyleyip üretebiliriz.
 ```csharp
 class Program
@@ -86,5 +86,5 @@ class Program
         vehicleMotorcycle.DisplayInfo();
     }
 }
-    ```
+```
 Factory method tasarım deseni ile client etkilenmeden değişiklik yapılabilir.
