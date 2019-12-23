@@ -6,16 +6,33 @@ Fabrika yordam tasarım deseni, nesne yaratma sorumluluğunun bir yordama verilm
 
 ![Image of Class](https://github.com/OzturkB/yazilim-mimarisi-ve-tasarimi-proje/blob/master/FactoryMethod.png)
 
-'''csharp
-   for (int i = 0 ; i < 10; i++)
-    {
-      // Code to execute.
-    }
-    '''
-
 ```csharp
-    for (int i = 0 ; i < 10; i++)
+    public interface IVehicle
+{
+    void DisplayInfo();
+}
+ 
+public class Car : IVehicle
+{
+    public void DisplayInfo()
     {
-      // Code to execute.
+        Console.WriteLine("Car produced");
     }
+}
+ 
+public class Truck : IVehicle
+{
+    public void DisplayInfo()
+    {
+        Console.WriteLine("Truck produced");
+    }
+}
+ 
+public class Motorcycle : IVehicle
+{
+    public void DisplayInfo()
+    {
+        Console.WriteLine("Motorcycle produced");
+    }
+}
     ```
